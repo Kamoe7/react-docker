@@ -23,7 +23,7 @@
     stage('Test'){
       steps{
         dir('my-react-app'){
-            sh 'npm test'
+            sh 'npm test -- --watchAll=false'
         }
     }
   }
@@ -35,12 +35,30 @@
         }
       }
     }   
+    
+    stage('Build Docker Image'){
+        steps{
+            sh 'docker build -t react-docker:lst'
+        }
+    }
+
+
+    stage('Run Docker Container'){
+        steps{
+            sh 'docker stop react-docker || true'
+            sh 'docker rm react-docker || true'
+            sh 'docker run -d --name react-docker -p 8080:80 react-docker:lst'
+        }
+    }
   }
 
 
   post{
     success{
-        archiveArtifacts artifacts: 'my-react-app/build/**', fingerprint: true
+        archiveArtifacts artifacts: 'build/**', fingerprint: true , allowEmptyArchive=true //so later i can download the github code from the jenkins 
+    }
+    failure{
+        echo 'Build failed. Checked logs'
     }
   }
 }
