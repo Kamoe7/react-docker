@@ -1,0 +1,46 @@
+ pipeline {
+  agent any
+
+  tools {
+    nodejs '22.16.0'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch:'main', url : 'https://github.com/Kamoe7/react-docker'
+      }
+    }
+
+    stage('Install') {
+      steps {
+        dir('my-react-app') {
+          sh 'npm install'
+        }
+      }
+    }
+
+    stage('Test'){
+      steps{
+        dir('my-react-app'){
+            sh 'npm test'
+        }
+    }
+  }
+
+    stage('Build') {
+      steps {
+        dir('my-react-app') {
+          sh 'npm run build'
+        }
+      }
+    }   
+  }
+
+
+  post{
+    success{
+        archiveArtifacts artifacts: 'my-react-app/build/**', fingerprint: true
+    }
+  }
+}
