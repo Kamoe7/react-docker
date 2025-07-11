@@ -38,7 +38,7 @@
     
     stage('Build Docker Image'){
         steps{
-            sh 'docker build -t react-docker:latest'
+            sh 'docker build -t react-docker:latest .'
         }
     }
 
