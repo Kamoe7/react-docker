@@ -23,7 +23,7 @@
     stage('Test'){
       steps{
        
-            sh 'npm test -- --watchAll=false'
+            sh 'npm test ' // also can do npx vitest run
         
     }
   }
@@ -50,12 +50,19 @@
             sh 'docker run -d --name react-docker -p 8080:80 react-docker:lst'
         }
     }
+
+    stage('Archive Build'){
+      steps{
+        archiveArtifacts artifacts: 'build/**', fingerprint: true , allowEmptyArchive:true //so later i can download the github code from the jenkins 
+      }
+    }
   }
 
 
   post{
     success{
-        archiveArtifacts artifacts: 'build/**', fingerprint: true , allowEmptyArchive:true //so later i can download the github code from the jenkins 
+      echo 'React app build and deployment successful!'
+        
     }
     failure{
         echo 'Build failed. Checked logs'
