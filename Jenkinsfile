@@ -14,25 +14,25 @@
 
     stage('Install') {
       steps {
-        dir('my-react-app') {
+         
           sh 'npm install'
-        }
+        
       }
     }
 
     stage('Test'){
       steps{
-        dir('my-react-app'){
+       
             sh 'npm test -- --watchAll=false'
-        }
+        
     }
   }
 
     stage('Build') {
       steps {
-        dir('my-react-app') {
+       
           sh 'npm run build'
-        }
+        
       }
     }   
     
@@ -55,7 +55,7 @@
 
   post{
     success{
-        archiveArtifacts artifacts: 'build/**', fingerprint: true , allowEmptyArchive=true //so later i can download the github code from the jenkins 
+        archiveArtifacts artifacts: 'build/**', fingerprint: true , allowEmptyArchive:true //so later i can download the github code from the jenkins 
     }
     failure{
         echo 'Build failed. Checked logs'
