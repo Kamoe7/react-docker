@@ -38,7 +38,7 @@
     
     stage('Build Docker Image'){
         steps{
-            sh 'docker build -t react-docker:lst'
+            sh 'docker build -t react-docker:latest'
         }
     }
 
@@ -47,7 +47,7 @@
         steps{
             sh 'docker stop react-docker || true'
             sh 'docker rm react-docker || true'
-            sh 'docker run -d --name react-docker -p 8080:80 react-docker:lst'
+            sh 'docker run -d --name react-docker -p 8080:80 react-docker:latest'
         }
     }
 
