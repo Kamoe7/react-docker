@@ -47,7 +47,7 @@
         steps{
             sh 'docker stop react-docker || true'
             sh 'docker rm react-docker || true'
-            sh 'docker run -d --name react-docker -p 8080:80 react-docker:latest'
+            sh 'docker run -d --name react-docker -p 5173:80 react-docker:latest'
         }
     }
 
