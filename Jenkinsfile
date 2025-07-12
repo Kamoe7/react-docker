@@ -65,7 +65,7 @@
         
     }
     failure{
-        echo 'Build failed. Checked logs'
+        echo 'Build failed. '
     }
   }
 }
