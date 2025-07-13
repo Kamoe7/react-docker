@@ -55,10 +55,9 @@
     stage('Deploy to Netlify'){
       steps{
         withCredentials([string(credentialsId: 'netlify-token',variable: 'NETLIFY_AUTH_TOKEN')]){
-            sh 'netlify deploy --prod --dir=build --auth=$NETLIFY_AUTH_TOKEN --site=495d1b94-ad3d-40df-8a63-d03ae3635c75'
+            sh 'netlify deploy --prod --dir=dist --auth=$NETLIFY_AUTH_TOKEN --site=495d1b94-ad3d-40df-8a63-d03ae3635c75'
         }
       }
-    }
 
     stage('Archive Build'){
       steps{
@@ -78,3 +77,4 @@
     }
   }
 }
+ }
