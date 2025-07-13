@@ -58,6 +58,7 @@
             sh 'netlify deploy --prod --dir=dist --auth=$NETLIFY_AUTH_TOKEN --site=495d1b94-ad3d-40df-8a63-d03ae3635c75'
         }
       }
+      }
 
     stage('Archive Build'){
       steps{
@@ -77,4 +78,4 @@
     }
   }
 }
- }
+ 
